@@ -19,7 +19,7 @@ const farms: FarmConfig[] = [
   },
   {
     pid: 1,
-    lpSymbol: 'CAKE-BNB LP',
+    lpSymbol: 'SPC-BNB LP',
     lpAddresses: {
       97: '0xe70b7523f4bffa1f2e88d2ba709afd026030f412',
       56: '0x746cacf13c8b3e8d9eb2d6e85c0d0ef818f14ee9',

@@ -276,40 +276,12 @@ const Farms: React.FC = () => {
   })
 
   const renderContent = (): JSX.Element => {
-    if (viewMode === ViewMode.TABLE && rowData.length) {
-      const columnSchema = DesktopColumnSchema
-
-      const columns = columnSchema.map((column) => ({
-        id: column.id,
-        name: column.name,
-        label: column.label,
-        sort: (a: RowType<RowProps>, b: RowType<RowProps>) => {
-          switch (column.name) {
-            case 'farm':
-              return b.id - a.id
-            case 'apr':
-              if (a.original.apr.value && b.original.apr.value) {
-                return Number(a.original.apr.value) - Number(b.original.apr.value)
-              }
-
-              return 0
-            case 'earned':
-              return a.original.earned.earnings - b.original.earned.earnings
-            default:
-              return 1
-          }
-        },
-        sortable: column.sortable,
-      }))
-
-      return <Table data={rowData} columns={columns} />
-    }
 
     return (
       <div>
         <FlexLayout>
           <Route exact path={`${path}`}>
-            {farmsStaked.map((farm) => (
+            {farmsStaked.map((farm) => (farm.pid === 1 ?
               <FarmCard
                 key={farm.pid}
                 farm={farm}
@@ -318,20 +290,7 @@ const Farms: React.FC = () => {
                 ethPrice={ethPriceUsd}
                 account={account}
                 removed={false}
-              />
-            ))}
-          </Route>
-          <Route exact path={`${path}/history`}>
-            {farmsStaked.map((farm) => (
-              <FarmCard
-                key={farm.pid}
-                farm={farm}
-                bnbPrice={bnbPrice}
-                cakePrice={cakePrice}
-                ethPrice={ethPriceUsd}
-                account={account}
-                removed
-              />
+              />:<></>
             ))}
           </Route>
         </FlexLayout>
@@ -354,50 +313,7 @@ const Farms: React.FC = () => {
         </Heading>
       </Header>
       <Page>
-        <ControlContainer>
-          <ViewControls>
-            <ToggleView viewMode={viewMode} onToggle={(mode: ViewMode) => setViewMode(mode)} />
-            <ToggleWrapper>
-              <Toggle checked={stackedOnly} onChange={() => setStackedOnly(!stackedOnly)} scale="sm" />
-              <Text> {TranslateString(1116, 'Staked only')}</Text>
-            </ToggleWrapper>
-            <FarmTabButtons />
-          </ViewControls>
-          <FilterContainer>
-            <LabelWrapper>
-              <Text>SORT BY</Text>
-              <Select
-                options={[
-                  {
-                    label: 'Hot',
-                    value: 'hot',
-                  },
-                  {
-                    label: 'APR',
-                    value: 'apr',
-                  },
-                  {
-                    label: 'Multiplier',
-                    value: 'multiplier',
-                  },
-                  {
-                    label: 'Earned',
-                    value: 'earned',
-                  },
-                  {
-                    label: 'Liquidity',
-                    value: 'liquidity',
-                  },
-                ]}
-                onChange={handleSortOptionChange}
-              />
-            </LabelWrapper>
-            <LabelWrapper style={{ marginLeft: 16 }}>
-              <Text>SEARCH</Text>
-              <SearchInput onChange={handleChangeQuery} value={query} />
-            </LabelWrapper>
-          </FilterContainer>
-        </ControlContainer>
+        
         {renderContent()}
         <StyledImage src="/images/3dpan.png" alt="Pancake illustration" width={120} height={103} />
       </Page>

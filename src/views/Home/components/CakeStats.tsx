@@ -33,16 +33,16 @@ const CakeStats = () => {
           {TranslateString(534, 'Cake Stats')}
         </Heading>
         <Row>
-          <Text fontSize="14px">{TranslateString(536, 'Total CAKE Supply')}</Text>
+          <Text fontSize="14px">{TranslateString(536, 'Total SPC Supply')}</Text>
           {cakeSupply && <CardValue fontSize="14px" value={cakeSupply} />}
         </Row>
         <Row>
-          <Text fontSize="14px">{TranslateString(538, 'Total CAKE Burned')}</Text>
+          <Text fontSize="14px">{TranslateString(538, 'Total SPC Burned')}</Text>
           <CardValue fontSize="14px" decimals={0} value={burnedBalance} />
         </Row>
         <Row>
-          <Text fontSize="14px">{TranslateString(540, 'New CAKE/block')}</Text>
-          <CardValue fontSize="14px" decimals={0} value={25} />
+          <Text fontSize="14px">{TranslateString(540, 'New SPC/block')}</Text>
+          <CardValue fontSize="14px" decimals={0} value={10} />
         </Row>
       </CardBody>
     </StyledCakeStats>
