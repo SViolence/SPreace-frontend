@@ -10,7 +10,10 @@ import useI18n from 'hooks/useI18n'
 import { usePools, useBlock } from 'state/hooks'
 import FlexLayout from 'components/layout/Flex'
 import Page from 'components/layout/Page'
+import Coming from './components/Coming'
 import PoolCard from './components/PoolCard'
+import PoolTabButtons from './components/PoolTabButtons'
+import Divider from './components/Divider'
 
 const Farm: React.FC = () => {
   const { path } = useRouteMatch()
@@ -18,9 +21,9 @@ const Farm: React.FC = () => {
   const { account } = useWeb3React()
   const pools = usePools(account)
   const { blockNumber } = useBlock()
-  const [stackedOnly ] = useState(false)
+  const [stackedOnly, setStackedOnly] = useState(false)
 
-  const [ openPools] = useMemo(
+  const [finishedPools, openPools] = useMemo(
     () => partition(pools, (pool) => pool.isFinished || blockNumber > pool.endBlock),
     [blockNumber, pools],
   )
@@ -44,12 +47,12 @@ const Farm: React.FC = () => {
         </div>
         <img src="/images/syrup.png" alt="SYRUP POOL icon" width={410} height={191} />
       </Hero>
+      
+      <Divider />
       <FlexLayout>
         <Route exact path={`${path}`}>
           <>
-            {stackedOnly
-              ? orderBy(stackedOnlyPools, ['sortOrder']).map((pool) => <PoolCard key={pool.sousId} pool={pool} />)
-              : orderBy(openPools, ['sortOrder']).map((pool) => <PoolCard key={pool.sousId} pool={pool} />)}
+            {orderBy(openPools, ['sortOrder']).map((pool) => <PoolCard key={pool.sousId} pool={pool} />)}
           </>
         </Route>
       </FlexLayout>
