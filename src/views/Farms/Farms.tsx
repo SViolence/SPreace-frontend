@@ -167,7 +167,7 @@ const Farms: React.FC = () => {
       <div>
         <FlexLayout>
           <Route exact path={`${path}`}>
-            {farmsStaked.map((farm) => (farm.pid === 1 ?
+            {farmsStaked.map((farm) => (farm.pid !== 3 && farm.pid !== 4 ?
               <FarmCard
                 key={farm.pid}
                 farm={farm}
